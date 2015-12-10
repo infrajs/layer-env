@@ -3,8 +3,10 @@ namespace infrajs\controller;
 use infrajs\path\Path;
 use infrajs\event\Event;
 
+Path::req('*controller/infra.php');
 Event::handler('oninit', function () {
 	ext\env::init();
+	Layer::parsedAdd('envval');
 });
 
 Event::handler('layer.oncheck', function (&$layer) {
