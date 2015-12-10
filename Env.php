@@ -9,7 +9,7 @@ class env
 	public static function init()
 	{
 		global $infra,$infrajs;
-		Event::waitg('oninit', function () {
+		Event::handler('oninit', function () {
 			//Обработка envs, envtochild, myenvtochild, envframe
 			external::add('myenv', 'config');//Обрабатывается также как config
 			//external::add('env', '');//Никак не обрабатывается.. будет установлено только если нечего небыло
@@ -28,7 +28,7 @@ class env
 		//Слои myenv надо показывать тогдаже когда и показывается сам слой
 		$myenv = null;
 		$ll = null;
-		Controller::run(Controller::getWorkLayers(), function (&$l) use (&$layer, &$myenv, &$ll) {
+		Controller::run(Controller::$layers, function (&$l) use (&$layer, &$myenv, &$ll) {
 			//Есть окружение и мы не нашли ни одного true для него
 			if (!isset($l['myenv'])) {
 				return;
@@ -39,7 +39,7 @@ class env
 			}//В back режиме выйти нельзя.. смотрятся все слои
 
 
-			if (infra_isEqual($l, $layer)) {
+			if (Each::isEqual($l, $layer)) {
 				return;
 			}//Значение по умолчанию смотрится отдельно
 
