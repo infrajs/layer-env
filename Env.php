@@ -31,7 +31,7 @@ class env
 				return;
 			}
 
-			if (!Controller::fire('layer.ischeck', $l)) {
+			if (!Event::fire('layer.ischeck', $l)) {
 				return;
 			}//В back режиме выйти нельзя.. смотрятся все слои
 
@@ -47,7 +47,7 @@ class env
 				return;
 			}
 
-			if (Controller::fire('layer.isshow', $l)) {
+			if (Event::fire('layer.isshow', $l)) {
 				//Ищим последнюю установку на счёт env
 				$myenv = $l['myenv'][$layer['env']];
 				$ll = &$l;
