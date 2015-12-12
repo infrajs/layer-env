@@ -2,8 +2,9 @@
 namespace infrajs\controller;
 use infrajs\path\Path;
 use infrajs\event\Event;
+use infrajs\infra\Infra;
 
-Path::req('*controller/infra.php');
+Infra::req('controller');
 Event::handler('oninit', function () {
 	ext\env::init();
 	Layer::parsedAdd('envval');
