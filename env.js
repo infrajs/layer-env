@@ -1,10 +1,15 @@
+define('?-layer-env/env.js', ['?-event/event.js'], function () {
 	infra.wait(infrajs,'oninit',function(){
 		infrajs.externalAdd('myenv','config');//Обрабатывается также как config
 		infrajs.externalAdd('env','');//Никак не обрабатывается.. будет установлено только если нечего небыло
 		infrajs.externalAdd('envs','childs');//Объединяется так же как childs
 		infrajs.runAddKeys('envs');//Теперь бегаем и по envs свойству
 	});
-	/-controller.envSet=function(env,val){
+	/*controller
+git commit -m "js"
+git push
+
+cd ../.envSet=function(env,val){
 		//Функция вызывается после того как все слои показаны и нужно среди рабочих слоёв проверить было ли показан слои указанного env
 		if(infrajs.ignoreDOM())return;
 		var layers=[];
@@ -144,3 +149,4 @@
 	}
 	
 	
+});
