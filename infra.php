@@ -2,7 +2,7 @@
 namespace infrajs\controller;
 use infrajs\path\Path;
 use infrajs\event\Event;
-use infrajs\infra\Config;
+use infrajs\config\Config;
 
 Config::get('controller');
 Event::handler('oninit', function () {
