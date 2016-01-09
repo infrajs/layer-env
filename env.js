@@ -1,5 +1,5 @@
 define('?-layer-env/env.js', ['?-event/event.js'], function () {
-	infra.wait(infrajs,'oninit',function(){
+	Event.one('Infrajs.oninit',function(){
 		infrajs.externalAdd('myenv','config');//Обрабатывается также как config
 		infrajs.externalAdd('env','');//Никак не обрабатывается.. будет установлено только если нечего небыло
 		infrajs.externalAdd('envs','childs');//Объединяется так же как childs
@@ -33,10 +33,10 @@ cd ../.envSet=function(env,val){
 		var myenv,ll;
 		infrajs.run(infrajs.getWorkLayers(),function(l){//Есть окружение и мы не нашли ни одного true для него
 			if(!l.myenv)return;
-			if(!infrajs.is('check',l))return;//В back режиме выйти нельзя.. смотрятся все слои
+			if(!Event.fire('layer.ischeck',l))return;//В back режиме выйти нельзя.. смотрятся все слои
 			if(l===layer)return;//Значение по умолчанию смотрится отдельно 
 			if(l.myenv[layer.env]===undefined)return;
-			if(infrajs.is('show',l)){//Ищим последнюю установку на счёт env
+			if(Event.fire('layer.isshow',l)){//Ищим последнюю установку на счёт env
 				myenv=l.myenv[layer.env];
 				ll=l;
 			}
