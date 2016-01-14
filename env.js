@@ -1,4 +1,4 @@
-define('?-layer-env/env.js', ['?-event/event.js'], function () {
+( function () {
 	Event.one('Infrajs.oninit',function(){
 		infrajs.externalAdd('myenv','config');//Обрабатывается также как config
 		infrajs.externalAdd('env','');//Никак не обрабатывается.. будет установлено только если нечего небыло
@@ -149,4 +149,4 @@ cd ../.envSet=function(env,val){
 	}
 	
 	
-});
+})();
