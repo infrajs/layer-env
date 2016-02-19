@@ -1,4 +1,5 @@
 {
 	"dependencies":"event",
-	"js":["env.js","infra.js"]
+	"js":["env.js","infra.js"],
+	"require":"infra.php"
 }

@@ -1,7 +1,10 @@
 <?php
 
-namespace infrajs\controller;
-
+namespace infrajs\layer\env;
+use infrajs\event\Event;
+use infrajs\controller\Layer;
+use infrajs\controller\External;
+use infrajs\controller\Run;
 use infrajs\controller\Controller;
 
 class env
@@ -11,9 +14,9 @@ class env
 		global $infra,$infrajs;
 		Event::handler('oninit', function () {
 			//Обработка envs, envtochild, myenvtochild, envframe
-			external::add('myenv', 'config');//Обрабатывается также как config
+			External::add('myenv', 'config');//Обрабатывается также как config
 			//external::add('env', '');//Никак не обрабатывается.. будет установлено только если нечего небыло
-			external::add('envs', 'childs');//Объединяется так же как childs
+			External::add('envs', 'childs');//Объединяется так же как childs
 
 			Run::runAddKeys('envs');//Теперь бегаем и по envs свойству
 		});
