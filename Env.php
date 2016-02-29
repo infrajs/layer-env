@@ -12,7 +12,7 @@ class env
 	public static function init()
 	{
 		global $infra,$infrajs;
-		Event::handler('oninit', function () {
+		Event::handler('Infrajs.oninit', function () {
 			//Обработка envs, envtochild, myenvtochild, envframe
 			External::add('myenv', 'config');//Обрабатывается также как config
 			//external::add('env', '');//Никак не обрабатывается.. будет установлено только если нечего небыло

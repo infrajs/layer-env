@@ -6,7 +6,7 @@ use infrajs\controller\Layer;
 use infrajs\config\Config;
 
 Config::get('controller');
-Event::handler('oninit', function () {
+Event::handler('Infrajs.oninit', function () {
 	Env::init();
 	Layer::parsedAdd('envval');
 });
