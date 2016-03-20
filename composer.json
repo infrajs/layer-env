@@ -4,5 +4,10 @@
 	"license": "GPL3",
 	"autoload": {
 		"psr-4": { "infrajs\\layer\\env\\": "/" }
+	},
+	"require":{
+		"infrajs/each":"~1",
+		"infrajs/event":"~1",
+		"infrajs/controller":"~1"
 	}
 }

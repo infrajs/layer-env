@@ -2,6 +2,7 @@
 
 namespace infrajs\layer\env;
 use infrajs\event\Event;
+use infrajs\each\Each;
 use infrajs\controller\Layer;
 use infrajs\controller\External;
 use infrajs\controller\Run;
