@@ -47,7 +47,7 @@ cd ../.envSet=function(env,val){
 				r=true;
 			}else{
 				r=false;
-				infrajs.isSaveBranch(layer,!!infrajs.isParent(ll,layer));
+				layer.is_save_branch = !!infrajs.isParent(ll,layer);
 				//infrajs.isSaveBranch(layer,false);
 			}
 		}
