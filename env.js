@@ -58,7 +58,7 @@ cd ../.envSet=function(env,val){
 					r=true;
 				}else{//Если слой по умолчанию скрыт его детей не показываем
 					r=false;
-					infrajs.isSaveBranch(layer,false);
+					layer.is_save_branch = false;
 				}
 			}
 		}
