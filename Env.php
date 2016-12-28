@@ -31,24 +31,25 @@ class env
 		$ll = null;
 		Run::exec(Controller::$layers, function (&$l) use (&$layer, &$myenv, &$ll) {
 			//Есть окружение и мы не нашли ни одного true для него
+			$r = null;
 			if (!isset($l['myenv'])) {
-				return;
+				return $r;
 			}
 
 			if (!Event::fire('layer.ischeck', $l)) {
-				return;
+				return $r;
 			}//В back режиме выйти нельзя.. смотрятся все слои
 
 
 			if (Each::isEqual($l, $layer)) {
-				return;
+				return $r;
 			}//Значение по умолчанию смотрится отдельно
 
 			if (!isset($l['myenv'][$layer['env']])) {
-				return;
+				return $r;
 			}
 			if (is_null($l['myenv'][$layer['env']])) {
-				return;
+				return $r;
 			}
 
 			if (Event::fire('layer.isshow', $l)) {
@@ -56,6 +57,7 @@ class env
 				$myenv = $l['myenv'][$layer['env']];
 				$ll = &$l;
 			}
+			return $r;
 		});
 
 		if (!is_null($myenv)) {
