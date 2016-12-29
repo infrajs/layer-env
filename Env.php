@@ -24,39 +24,29 @@ class env
 	}
 	public static function check(&$layer)
 	{
-		if (!isset($layer['env'])) return;
 		$r = null;
+		if (!isset($layer['env'])) return $r;
 		//Слои myenv надо показывать тогдаже когда и показывается сам слой
 		$myenv = null;
 		$ll = null;
-		Run::exec(Controller::$layers, function (&$l) use (&$layer, &$myenv, &$ll) {
+		Run::exec(Controller::$layers, function &(&$l) use (&$layer, &$myenv, &$ll) {
 			//Есть окружение и мы не нашли ни одного true для него
 			$r = null;
-			if (!isset($l['myenv'])) {
-				return $r;
-			}
+			if (!isset($l['myenv'])) return $r;
+			if (!Event::fire('layer.ischeck', $l)) return $r; //В back режиме выйти нельзя.. смотрятся все слои
+			
+			if (Each::isEqual($l, $layer)) return $r; //Значение по умолчанию смотрится отдельно
 
-			if (!Event::fire('layer.ischeck', $l)) {
-				return $r;
-			}//В back режиме выйти нельзя.. смотрятся все слои
-
-
-			if (Each::isEqual($l, $layer)) {
-				return $r;
-			}//Значение по умолчанию смотрится отдельно
-
-			if (!isset($l['myenv'][$layer['env']])) {
-				return $r;
-			}
-			if (is_null($l['myenv'][$layer['env']])) {
-				return $r;
-			}
+			if (!isset($l['myenv'][$layer['env']])) return $r;
+			
+			if (is_null($l['myenv'][$layer['env']])) return $r;
 
 			if (Event::fire('layer.isshow', $l)) {
 				//Ищим последнюю установку на счёт env
 				$myenv = $l['myenv'][$layer['env']];
 				$ll = &$l;
 			}
+
 			return $r;
 		});
 
@@ -89,8 +79,8 @@ class env
 		if ($r) {
 			return !!$myenv;
 		}
-
-		return false;
+		$r = false;
+		return $r;
 	}
 
 //myenv:(object),//Перечислены env которые нужно показать и значения которые им нужно передать в envval
