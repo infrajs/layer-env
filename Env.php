@@ -61,7 +61,7 @@ class env
 				//infrajs_isSaveBranch($layer,false);
 			}
 		}
-		if (is_null($r) && @$layer['myenv']) {
+		if (is_null($r) && !empty($layer['myenv'])) {
 			//Значение по умолчанию
 			$myenv = $layer['myenv'][$layer['env']];
 			if (!is_null($myenv)) {
@@ -118,9 +118,9 @@ class env
 	public static function envtochild(&$layer)
 	{
 		$parent = $layer;
-		while (@$parent['parent'] && @$parent['parent']['env']) {
+		while (!empty($parent['parent']) && !empty($parent['parent']['env'])) {
 			$parent = $parent['parent'];
-			if (@$parent['envtochild']) {
+			if (!empty($parent['envtochild'])) {
 				$layer['env'] = $parent['env'];
 
 				return;
@@ -129,41 +129,31 @@ class env
 	}
 	public static function envframe(&$layer)
 	{
-		if (@!$layer['envframe']) {
-			return;
-		}
-		if (@$layer['env']) {
-			return;
-		}
+		if (empty($layer['envframe'])) return;
+		if (!empty($layer['env'])) return;
 
 		$stor = infra_stor();
-		if (@!$stor['envcouter']) {
-			$stor['envcouter'] = 0;
-		}
+		if (empty($stor['envcouter'])) $stor['envcouter'] = 0;
 		++$stor['envcouter'];
 		$layer['env'] = 'envframe'.$stor['envcouter'];
 	}
 	public static function envframe2(&$layer)
 	{
-		$parent = @$layer['parent'];
-		if (!$parent) {
-			return;
-		}
-		if (@!$parent['envframe']) {
-			return;
-		}
-		if (@!$layer['myenv']) {
-			$layer['myenv'] = array();
-		}
+		if (empty($layer['parent'])) return;
+		$parent = $layer['parent'];
+		if (empty($parent['envframe'])) return;
+		
+		if (empty($layer['myenv'])) $layer['myenv'] = array();
+		
 		$layer['myenv'][$parent['env']] = true;
 		$layer['myenvtochild'] = true;
 	}
 	public static function envmytochild(&$layer)
 	{
 		$parent = $layer;
-		while (@$parent['parent'] && @$parent['parent']['myenv']) {
+		while (!empty($parent['parent']) && !empty($parent['parent']['myenv'])) {
 			$parent = $parent['parent'];
-			if (@$parent['myenvtochild']) {
+			if (!empty($parent['myenvtochild'])) {
 				if (!isset($layer['myenv'])) {
 					$layer['myenv'] = array();
 				}
