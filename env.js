@@ -1,5 +1,5 @@
 ( function () {
-	Event.one('Infrajs.oninit',function(){
+	Event.one('Controller.oninit',function(){
 		infrajs.externalAdd('myenv','config');//Обрабатывается также как config
 		infrajs.externalAdd('env','');//Никак не обрабатывается.. будет установлено только если нечего небыло
 		infrajs.externalAdd('envs','childs');//Объединяется так же как childs
@@ -33,10 +33,10 @@ cd ../.envSet=function(env,val){
 		var myenv,ll;
 		infrajs.run(infrajs.getWorkLayers(),function(l){//Есть окружение и мы не нашли ни одного true для него
 			if(!l.myenv)return;
-			if(!Event.fire('layer.ischeck',l))return;//В back режиме выйти нельзя.. смотрятся все слои
+			if(!Event.fire('Layer.ischeck',l))return;//В back режиме выйти нельзя.. смотрятся все слои
 			if(l===layer)return;//Значение по умолчанию смотрится отдельно 
 			if(l.myenv[layer.env]===undefined)return;
-			if(Event.fire('layer.isshow',l)){//Ищим последнюю установку на счёт env
+			if(Event.fire('Layer.isshow',l)){//Ищим последнюю установку на счёт env
 				myenv=l.myenv[layer.env];
 				ll=l;
 			}
@@ -78,7 +78,7 @@ cd ../.envSet=function(env,val){
  	//когда есть главная страница и структура вложенных слоёв, но вложенные показываются не при всех состояниях и иногда нужно показать главную страницу. Это не правильно. Адреса должны автоматически нормализовываться.
 	//Если такого состояния нет нужно сделать редирект на главную и по этому задачи показывать главную во внутренних состояниях отпадает
 	//при переходе на клиенте должно быть сообщение страницы нет, а при обновлении постоянный редирект на главную или на страницу поиска
-	infra.listen(infra,'layer.oncheck',function(){
+	infra.listen(infra,'Layer.oncheck',function(){
 		//myenv Наследуется от родителя только когда совсем ничего не указано. Если хоть что-то указано от родителя наследования не будет.
 		var layer=this;
 		if(layer.myenv)return;

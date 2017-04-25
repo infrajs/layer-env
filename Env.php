@@ -13,7 +13,7 @@ class env
 	public static function init()
 	{
 		global $infra,$infrajs;
-		Event::handler('Infrajs.oninit', function () {
+		Event::handler('Controller.oninit', function () {
 			//Обработка envs, envtochild, myenvtochild, envframe
 			External::add('myenv', 'config');//Обрабатывается также как config
 			//external::add('env', '');//Никак не обрабатывается.. будет установлено только если нечего небыло
@@ -33,7 +33,7 @@ class env
 			//Есть окружение и мы не нашли ни одного true для него
 			$r = null;
 			if (!isset($l['myenv'])) return $r;
-			if (!Event::fire('layer.ischeck', $l)) return $r; //В back режиме выйти нельзя.. смотрятся все слои
+			if (!Event::fire('Layer.ischeck', $l)) return $r; //В back режиме выйти нельзя.. смотрятся все слои
 			
 			if (Each::isEqual($l, $layer)) return $r; //Значение по умолчанию смотрится отдельно
 
@@ -41,7 +41,7 @@ class env
 			
 			if (is_null($l['myenv'][$layer['env']])) return $r;
 
-			if (Event::fire('layer.isshow', $l)) {
+			if (Event::fire('Layer.isshow', $l)) {
 				//Ищим последнюю установку на счёт env
 				$myenv = $l['myenv'][$layer['env']];
 				$ll = &$l;
@@ -92,7 +92,7 @@ class env
 	//когда есть главная страница и структура вложенных слоёв, но вложенные показываются не при всех состояниях и иногда нужно показать главную страницу. Это не правильно. Адреса должны автоматически нормализовываться.
 	//Если такого состояния нет нужно сделать редирект на главную и по этому задачи показывать главную во внутренних состояниях отпадает
 	//при переходе на клиенте должно быть сообщение страницы нет, а при обновлении постоянный редирект на главную или на страницу поиска
-	infra.listen(infra,'layer.oncheck',function(){
+	infra.listen(infra,'Layer.oncheck',function(){
 		//myenv Наследуется от родителя только когда совсем ничего не указано. Если хоть что-то указано от родителя наследования не будет.
 		var layer=this;
 		if(layer.myenv)return;
