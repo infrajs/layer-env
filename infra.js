@@ -1,30 +1,34 @@
 Event.one('Controller.oninit', function () {
-	infrajs.parsedAdd('envval');
+	Controller.parsedAdd(function(layer, r){
+		//Рекурсивно собираем все значения в строку
+		if (!layer.envval) return '';
+		return Hash.exec(layer.envval);
+	});
 }, 'env');
 
 Event.handler('Layer.oncheck', function (layer){
 	//envs
-	infrajs.envEnvs(layer);
+	Controller.envEnvs(layer);
 }, 'env:div');
 Event.handler('Layer.oncheck', function (layer){
 	//envframe
-	infrajs.envframe(layer);
+	Controller.envframe(layer);
 }, 'env:div');
 Event.handler('Layer.oncheck', function (layer){
 	//envframe
-	infrajs.envframe2(layer);
+	Controller.envframe2(layer);
 }, 'env:div');
 Event.handler('Layer.oncheck', function (layer){//external то ещё не применился нельзя
 	//env myenvtochild
-	infrajs.envmytochild(layer);
+	Controller.envmytochild(layer);
 }, 'env:div');
 Event.handler('Layer.oncheck', function (layer){//external то ещё не применился нельзя
 	//envtochild
-	infrajs.envtochild(layer)
+	Controller.envtochild(layer)
 }, 'env:div');
 
 
 Event.handler('Layer.isshow', function (layer){
 	//env, counter
-	return infrajs.envCheck(layer);
+	return Controller.envCheck(layer);
 }, 'env:div');

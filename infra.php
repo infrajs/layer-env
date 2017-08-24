@@ -2,13 +2,18 @@
 namespace infrajs\layer\env;
 use infrajs\path\Path;
 use infrajs\event\Event;
+use infrajs\hash\Hash;
 use infrajs\controller\Layer;
 use infrajs\config\Config;
 
 Config::get('controller');
 Event::handler('Controller.oninit', function () {
 	Env::init();
-	Layer::parsedAdd('envval');
+	Layer::parsedAdd( function ($layer) {
+		//Рекурсивно собираем все значения в строку
+		if (empty($layer['envval'])) return '';
+		return Hash::make($layer['envval']);
+	});
 });
 
 Event::handler('Layer.oncheck', function (&$layer) {
