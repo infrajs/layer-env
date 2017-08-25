@@ -5,6 +5,7 @@ use infrajs\event\Event;
 use infrajs\hash\Hash;
 use infrajs\controller\Layer;
 use infrajs\config\Config;
+use infrajs\template\Template;
 
 Config::get('controller');
 Event::handler('Controller.oninit', function () {
@@ -14,23 +15,27 @@ Event::handler('Controller.oninit', function () {
 		if (empty($layer['envval'])) return '';
 		return Hash::make($layer['envval']);
 	});
-});
+},'env');
 
 Event::handler('Layer.oncheck', function (&$layer) {
+	
 	Env::checkinit($layer);
-}, 'env:config,external');
-Event::handler('Layer.oncheck', function (&$layer) {
 	Env::envtochild($layer);
-}, 'env:config,external');
-Event::handler('Layer.oncheck', function (&$layer) {
+	
 	Env::envframe($layer);
-}, 'env:config,external');
-Event::handler('Layer.oncheck', function (&$layer) {
 	Env::envframe2($layer);
-}, 'env:config,external');
-Event::handler('Layer.oncheck', function (&$layer) {
+
 	Env::envmytochild($layer);
-}, 'env:config,external');
+
+	$name = 'myenv';//stencil//
+	$nametpl = $name.'tpl';
+	if (isset($layer[$nametpl])) {
+		if (!isset($layer[$name])) $layer[$name] = array();
+		foreach ($layer[$nametpl] as $i => $v) {
+			$layer[$name][$i] = Template::parse(array($layer[$nametpl][$i]), $layer);
+		}
+	}
+}, 'env:div,config,external');
 
 Event::handler('Layer.isshow', function (&$layer) {
 	return Env::check($layer);

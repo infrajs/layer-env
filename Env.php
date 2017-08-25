@@ -106,9 +106,7 @@ class env
 
 	public static function checkinit(&$layer)
 	{
-		if (empty($layer['envs'])) {
-			return;
-		}
+		if (empty($layer['envs'])) return;
 		Each::forx($layer['envs'], function (&$l, $env) {
 			//Из-за забегания вперёд external не применился а в external могут быть вложенные слои
 			$l['env'] = $env;

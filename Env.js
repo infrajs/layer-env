@@ -94,12 +94,12 @@ cd ../.envSet=function(env,val){
 	
 
 	
-	infrajs.envEnvs=function(layer){
-		if(!layer.envs)return;
-		infra.forx(layer.envs,function(l,env){
-			infrajs.run(l,function(la){
-				if(!la.env)la.env=env;
-				la.envtochild=true;
+	infrajs.envcheckinit=function(layer){
+		if (!layer.envs) return;
+		infra.forx(layer.envs, function (l, env) {
+			infrajs.run(l, function (la) {
+				if (!la.env) la.env = env;
+				la.envtochild = true;
 			});
 		});
 	}
@@ -116,32 +116,32 @@ cd ../.envSet=function(env,val){
 	}
 
 
-	infrajs.envframe=function(layer){
+	infrajs.envframe = function (layer) {
 		if(!layer['envframe'])return;
-		if(layer['env'])return;
+		if (layer['env']) return;
 
 		var stor=infra.stor();
 		if(!stor['envcouter'])stor['envcouter']=0;
 		stor['envcouter']++;
 		layer['env']='envframe'+stor['envcouter'];
 	}
-	infrajs.envframe2=function(layer){
-		var par=layer['parent'];
-		if(!par)return;
-		if(!par['envframe'])return;
-		if(!layer['myenv'])layer['myenv']={};
-		layer['myenv'][par['env']]=true;
-		layer['myenvtochild']=true;
+	infrajs.envframe2 = function (layer) {
+		var par = layer['parent'];
+		if (!par) return;
+		if (!par['envframe']) return;
+		if (!layer['myenv']) layer['myenv'] = { };
+		layer['myenv'][par['env']] = true;
+		layer['myenvtochild'] = true;
 	}
 
-	infrajs.envmytochild=function(layer){
-		var par=layer;
-		while(par.parent&&par.parent.myenv){
-			par=par.parent;
-			if(par['myenvtochild']){
-				if(!layer['myenv'])layer['myenv']={};
-				for(var i in par['myenv']){
-					layer['myenv'][i]=par['myenv'][i];
+	infrajs.envmytochild = function (layer) {
+		var par = layer;
+		while (par.parent && par.parent.myenv) {
+			par = par.parent;
+			if (par['myenvtochild']) {
+				if (!layer['myenv']) layer['myenv'] = { };
+				for (var i in par['myenv']) {
+					layer['myenv'][i] = par['myenv'][i];
 				}
 				return;
 			}
