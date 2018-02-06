@@ -1,7 +1,6 @@
 {
 	"name": "infrajs/layer-env",
 	"homepage":"https://github.com/infrajs/layer-env",
-	"license": "GPL3",
 	"autoload": {
 		"psr-4": { "infrajs\\layer\\env\\": "/" }
 	},
