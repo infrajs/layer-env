@@ -6,7 +6,6 @@
 	},
 	"require":{
 		"infrajs/each":"~1",
-		"infrajs/hash":"~1",
 		"infrajs/event":"~1",
 		"infrajs/controller":"~1"
 	}

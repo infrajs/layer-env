@@ -2,7 +2,7 @@ Event.one('Controller.oninit', function () {
 	Controller.parsedAdd(function(layer, r){
 		//Рекурсивно собираем все значения в строку
 		if (!layer.envval) return '';
-		return Hash.exec(layer.envval);
+		return JSON.stringify(layer.envval);
 	});
 }, 'env');
 
