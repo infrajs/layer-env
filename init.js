@@ -28,6 +28,7 @@ let envCheck = function (layer) {
 			ll = l;
 		}
 	});
+	
 	var r;
 	if (typeof (myenv) !== 'undefined') {//Если слой скрываем слоем окружения который у него в родителях числиться он после этого сам всё равно должен показаться
 		if (myenv) {//Значение по умолчанию смотрим только если myenv undefined
@@ -49,10 +50,10 @@ let envCheck = function (layer) {
 			}
 		}
 	}
-	layer.envval = myenv;
-	if (r) return !!myenv;
+	layer.envval = myenv
+	if (r) return !!myenv
 	return false;
-};
+}
 
 
 //myenv:(object),//Перечислены env которые нужно показать и значения которые им нужно передать в envval
@@ -143,5 +144,6 @@ Event.handler('Layer.oncheck', function (layer){
 
 Event.handler('Layer.isshow', function (layer){
 	//env, counter
-	return envCheck(layer);
+	let r = envCheck(layer)
+	return r
 }, 'env:counter,tpl,div,is');

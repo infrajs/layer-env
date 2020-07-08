@@ -1,8 +1,7 @@
 <?php
 namespace infrajs\layer\env;
-use infrajs\path\Path;
+
 use infrajs\event\Event;
-use infrajs\hash\Hash;
 use infrajs\controller\Layer;
 use infrajs\config\Config;
 use infrajs\template\Template;
@@ -13,7 +12,7 @@ Event::handler('Controller.oninit', function () {
 	Layer::parsedAdd( function ($layer) {
 		//Рекурсивно собираем все значения в строку
 		if (empty($layer['envval'])) return '';
-		return Hash::make($layer['envval']);
+		return json_encode($layer['envval']);
 	});
 },'env');
 
